@@ -1,0 +1,21 @@
+{
+  "animal_metrics": {
+    "accuracy": 0.1563496057708438,
+    "precision": 0.16113702142789124,
+    "recall": 0.1563496057708438,
+    "f1_score": 0.09840678625909546
+  },
+  "action_metrics": {
+    "accuracy": 0.26723704076497234,
+    "precision": 0.18969923564709942,
+    "recall": 0.26723704076497234,
+    "f1_score": 0.20399355245641612
+  },
+  "dataset_info": {
+    "num_animals": 799,
+    "num_actions": 133,
+    "train_samples": 2758300,
+    "val_samples": 689576,
+    "test_samples": 890555
+  }
+}
