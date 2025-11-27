@@ -25,7 +25,7 @@ class RetrainingManager:
         self.base_dir = base_dir
         self.retrain_queue_dir = base_dir / "data" / "retrain_queue"
         self.models_dir = base_dir / "models"
-        self.checkpoints_dir = base_dir / "models" / "checkpoints"  # FIXED: Correct path
+        self.checkpoints_dir = base_dir / "models" / "checkpoints" 
         self.status_file = base_dir / "monitoring" / "retrain_status.json"
         
         # Create directories if they don't exist
@@ -47,7 +47,7 @@ class RetrainingManager:
         Returns DataFrame with new training data
         """
         if not self.retrain_queue_dir.exists():
-            print(f"❌ Retrain queue directory not found: {self.retrain_queue_dir}")
+            print(f" Retrain queue directory not found: {self.retrain_queue_dir}")
             print(f"   Creating directory...")
             self.retrain_queue_dir.mkdir(parents=True, exist_ok=True)
             return None
@@ -58,7 +58,7 @@ class RetrainingManager:
         video_dirs = [d for d in self.retrain_queue_dir.iterdir() if d.is_dir()]
         
         if len(video_dirs) == 0:
-            print(f"⚠️  No video directories in queue: {self.retrain_queue_dir}")
+            print(f"  No video directories in queue: {self.retrain_queue_dir}")
             print(f"   To add data for retraining:")
             print(f"   1. Create folder: {self.retrain_queue_dir}/video_001/")
             print(f"   2. Add images: frame_0001.jpg, frame_0002.jpg, etc.")
@@ -71,7 +71,7 @@ class RetrainingManager:
             # Load metadata
             metadata_file = video_dir / "metadata.json"
             if not metadata_file.exists():
-                print(f"⚠️  Warning: No metadata for {video_dir.name}, skipping...")
+                print(f" Warning: No metadata for {video_dir.name}, skipping...")
                 continue
             
             with open(metadata_file, 'r') as f:
@@ -84,7 +84,7 @@ class RetrainingManager:
             ])
             
             if len(image_files) == 0:
-                print(f"⚠️  Warning: No images in {video_dir.name}, skipping...")
+                print(f"  Warning: No images in {video_dir.name}, skipping...")
                 continue
             
             print(f"  ✓ {video_dir.name}: {len(image_files)} frames")
@@ -101,7 +101,7 @@ class RetrainingManager:
                 })
         
         if len(new_data) == 0:
-            print("❌ No valid data found in retrain queue")
+            print(" No valid data found in retrain queue")
             return None
         
         print(f"✓ Prepared {len(new_data)} frames from {len(video_dirs)} videos")
@@ -123,7 +123,7 @@ class RetrainingManager:
             
             print(f"✓ Combined: {len(existing_df)} existing + {len(new_df)} new = {len(combined_df)} total")
         else:
-            print("⚠️  No existing dataset found, using only new data")
+            print("  No existing dataset found, using only new data")
             new_df['type'] = 'train'
             combined_df = new_df
         
@@ -256,10 +256,10 @@ class RetrainingManager:
                     model.load_state_dict(checkpoint['model_state_dict'])
                     print("✓ Loaded existing weights successfully")
                 except Exception as e:
-                    print(f"⚠️  Warning: Could not load weights: {e}")
+                    print(f"  Warning: Could not load weights: {e}")
                     print("   Training from scratch...")
             else:
-                print(f"⚠️  No existing checkpoint found at: {checkpoint_path}")
+                print(f"  No existing checkpoint found at: {checkpoint_path}")
                 print("   Training from scratch...")
             
             model = model.to(self.device)
@@ -428,7 +428,7 @@ class RetrainingManager:
         except Exception as e:
             import traceback
             error_msg = traceback.format_exc()
-            print(f"\n❌ ERROR during retraining:")
+            print(f"\n ERROR during retraining:")
             print(error_msg)
             
             self.update_status(
