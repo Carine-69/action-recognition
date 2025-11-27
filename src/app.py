@@ -1,8 +1,3 @@
-"""
-Enhanced Gradio App - All Required Features
-Replace your existing gradio_app.py with this
-"""
-
 import gradio as gr
 import torch
 import torch.nn as nn
@@ -176,7 +171,7 @@ class AnimalActionSystem:
             self.model.eval()
             
             # Save model
-            save_path = Path("../checkpoints") / f"model_retrained_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pth"
+            save_path = Path("../models/checkpoints") / f"model_retrained_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pth"
             save_path.parent.mkdir(exist_ok=True)
             
             torch.save({
