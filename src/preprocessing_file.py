@@ -35,7 +35,7 @@ class VideoSequenceDataset(Dataset):
         # Get all video sequence folders
         self.sequences = [d for d in self.root_dir.iterdir() if d.is_dir()]
         
-        # Load labels if provided
+        # Load labels 
         self.labels = None
         if labels_file and Path(labels_file).exists():
             with open(labels_file, 'r') as f:
@@ -55,12 +55,12 @@ class VideoSequenceDataset(Dataset):
         # Load images
         frames = self._load_frames(sequence_folder)
         
-        # Get labels if available
+        # Get labels i
         if self.labels and sequence_folder.name in self.labels:
             animal_label = self.labels[sequence_folder.name]['animal']
             action_label = self.labels[sequence_folder.name]['action']
         else:
-            animal_label = -1  # Unknown
+            animal_label = -1 
             action_label = -1
         
         return {
