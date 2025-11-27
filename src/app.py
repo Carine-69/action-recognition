@@ -37,7 +37,7 @@ RETRAIN_STATUS = {"status": "idle", "progress": 0, "msg": ""}
 
 
 class AnimalActionSystem:
-    def __init__(self, model_path="../checkpoints/best_model.pth"):
+    def __init__(self, model_path="../models/checkpoints/best_model.pth"):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         print(f"Device: {self.device}")
         
